@@ -20,14 +20,14 @@ import 'package:thetkmshow/ui/aboutPage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-class thetkmshow extends StatefulWidget {
+class Show extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return AppState();
   }
 }
 
-class AppState extends State<thetkmshow> {
+class AppState extends State<Show> {
   TextEditingController searchBar = TextEditingController();
   bool fetchingSongs = false;
 
@@ -360,7 +360,7 @@ class AppState extends State<thetkmshow> {
                       padding: const EdgeInsets.only(left: 42.0),
                       child: Center(
                         child: GradientText(
-                          "thetkmshow.",
+                          "Musify.",
                           shaderRect: Rect.fromLTWH(13.0, 0.0, 100.0, 50.0),
                           gradient: LinearGradient(colors: [
                             Color(0xff4db6ac),
