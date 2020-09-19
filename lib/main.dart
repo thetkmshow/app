@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 
-import 'tabs_page.dart';
+import 'tab.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       navigatorObservers: <NavigatorObserver>[observer],
       home: MyHomePage(
-        title: 'Firebase Analytics Demo',
+        title: 'Firebase Analytics Demozz',
         analytics: analytics,
         observer: observer,
       ),

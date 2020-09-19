@@ -21,7 +21,7 @@ class _TabsPageState extends State<TabsPage>
   int selectedIndex = 0;
 
   final List<Tab> tabs = <Tab>[
-    const Tab(text: 'LEFTzzz'),
+    const Tab(text: 'LEFTffff'),
     const Tab(text: 'RIGHT'),
   ];
 
