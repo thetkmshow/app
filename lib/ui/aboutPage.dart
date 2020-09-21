@@ -25,7 +25,7 @@ class AboutPage extends StatelessWidget {
           brightness: Brightness.dark,
           centerTitle: true,
           title: GradientText(
-            "About",
+            "Stay In Touch",
             shaderRect: Rect.fromLTWH(13.0, 0.0, 100.0, 50.0),
             gradient: LinearGradient(colors: [
               Color(0xff4db6ac),
@@ -66,14 +66,14 @@ class AboutCards extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   title: Image.network(
-                    "https://telegra.ph/file/4798f3a9303b8300e4b5b.png",
+                    "https://thetkmshow.in/static/media/tkmshow_white.daed602d.png",
                     height: 120,
                   ),
                   subtitle: Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: Center(
                       child: Text(
-                        "thetkmshow  | 2.1.0",
+                        "thetkmshow  | 1.0.0",
                         style: TextStyle(
                             color: accentLight,
                             fontSize: 24,
@@ -108,38 +108,52 @@ class AboutCards extends StatelessWidget {
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: NetworkImage("https://telegram.im/img/harshv23"),
+                      image: NetworkImage(
+                          "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/6042015/6042015-1591172558348-8d8b77870bd83.jpg"),
                     ),
                   ),
                 ),
                 title: Text(
-                  'Harsh V23',
+                  'Listen',
                   style: TextStyle(color: accentLight),
                 ),
                 subtitle: Text(
-                  'App Developer',
+                  'Also at',
                   style: TextStyle(color: accentLight),
                 ),
                 trailing: Wrap(
                   children: <Widget>[
                     IconButton(
                       icon: Icon(
-                        MdiIcons.telegram,
+                        MdiIcons.spotify,
                         color: accentLight,
                       ),
-                      tooltip: 'Contact on Telegram',
+                      tooltip: 'Spotify',
                       onPressed: () {
-                        launchURL("https://telegram.dog/harshv23");
+                        launchURL(
+                            "https://open.spotify.com/show/7tmPClseHqoHF5bFYT0F2o");
                       },
                     ),
                     IconButton(
                       icon: Icon(
-                        MdiIcons.twitter,
+                        MdiIcons.googlePodcast,
                         color: accentLight,
                       ),
-                      tooltip: 'Contact on Twitter',
+                      tooltip: 'Google Podcasts',
                       onPressed: () {
-                        launchURL("https://twitter.com/harshv23");
+                        launchURL(
+                            "https://podcasts.google.com/?feed=aHR0cHM6Ly9hbmNob3IuZm0vcy8yNDliZjg5Yy9wb2RjYXN0L3Jzcw%3D%3D");
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        MdiIcons.podcast,
+                        color: accentLight,
+                      ),
+                      tooltip: 'Apple Podcasts',
+                      onPressed: () {
+                        launchURL(
+                            "https://podcasts.apple.com/in/podcast/the-tkm-show/id1517209911");
                       },
                     ),
                   ],
@@ -165,16 +179,16 @@ class AboutCards extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
-                          "https://telegra.ph/file/a64152b2fae1bf6e7d98e.jpg"),
+                          "https://bmnidhin.github.io/t4lk-static/s1/pl1.jpg"),
                     ),
                   ),
                 ),
                 title: Text(
-                  'Sumanjay',
+                  'Follow Us',
                   style: TextStyle(color: accentLight),
                 ),
                 subtitle: Text(
-                  'App Developer',
+                  'Stay Updated',
                   style: TextStyle(color: accentLight),
                 ),
                 trailing: Wrap(
@@ -191,126 +205,12 @@ class AboutCards extends StatelessWidget {
                     ),
                     IconButton(
                       icon: Icon(
-                        MdiIcons.twitter,
+                        MdiIcons.instagram,
                         color: accentLight,
                       ),
-                      tooltip: 'Contact on Twitter',
+                      tooltip: 'Instagram',
                       onPressed: () {
-                        launchURL("https://twitter.com/cyberboysj");
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
-            child: Card(
-              color: Color(0xff263238),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              elevation: 2.3,
-              child: ListTile(
-                leading: Container(
-                  width: 50.0,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://avatars1.githubusercontent.com/u/53393418?v=4"),
-                    ),
-                  ),
-                ),
-                title: Text(
-                  'Dhruvan Bhalara',
-                  style: TextStyle(color: accentLight),
-                ),
-                subtitle: Text(
-                  'Contributor',
-                  style: TextStyle(color: accentLight),
-                ),
-                trailing: Wrap(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        MdiIcons.telegram,
-                        color: accentLight,
-                      ),
-                      tooltip: 'Contact on Telegram',
-                      onPressed: () {
-                        launchURL("https://t.me/dhruvanbhalara");
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        MdiIcons.twitter,
-                        color: accentLight,
-                      ),
-                      tooltip: 'Contact on Twitter',
-                      onPressed: () {
-                        launchURL("https://twitter.com/dhruvanbhalara");
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
-            child: Card(
-              color: Color(0xff263238),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              elevation: 2.3,
-              child: ListTile(
-                leading: Container(
-                  width: 50.0,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://avatars3.githubusercontent.com/u/6892756?v=4"),
-                    ),
-                  ),
-                ),
-                title: Text(
-                  'Kapil Jhajhria',
-                  style: TextStyle(color: accentLight),
-                ),
-                subtitle: Text(
-                  'Contributor',
-                  style: TextStyle(color: accentLight),
-                ),
-                trailing: Wrap(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        MdiIcons.telegram,
-                        color: accentLight,
-                      ),
-                      tooltip: 'Contact on Telegram',
-                      onPressed: () {
-                        launchURL("https://telegram.dog/kapiljhajhria");
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        MdiIcons.twitter,
-                        color: accentLight,
-                      ),
-                      tooltip: 'Contact on Twitter',
-                      onPressed: () {
-                        launchURL("https://twitter.com/kapiljhajhria");
+                        launchURL("https://www.instagram.com/_thetkmshow_/");
                       },
                     ),
                   ],

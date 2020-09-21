@@ -33,10 +33,10 @@ class AudioAppState extends State<AudioApp> {
   get isPaused => playerState == PlayerState.paused;
 
   get durationText =>
-      duration != null ? duration.toString().split('.').first : '';
+      (duration != null) ? duration.toString().split('.').first : '';
 
   get positionText =>
-      position != null ? position.toString().split('.').first : '';
+      (position != null) ? position.toString().split('.').first : '';
 
   bool isMuted = false;
 
@@ -255,17 +255,26 @@ class AudioAppState extends State<AudioApp> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (duration != null)
-              Slider(
-                  activeColor: accent,
-                  inactiveColor: Colors.green[50],
-                  value: position?.inMilliseconds?.toDouble() ?? 0.0,
-                  onChanged: (double value) {
-                    return audioPlayer.seek((value / 1000).roundToDouble());
-                  },
-                  min: 0.0,
-                  max: duration.inMilliseconds.toDouble()),
-            if (position != null) _buildProgressView(),
+            if (duration == null)
+              Center(
+                  child: Padding(
+                padding: const EdgeInsets.all(35.0),
+                child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(accent),
+                ),
+              )),
+            if (title != "Live Radio")
+              if (duration != null)
+                Slider(
+                    activeColor: accent,
+                    inactiveColor: Colors.green[50],
+                    value: position?.inMilliseconds?.toDouble() ?? 0.0,
+                    onChanged: (double value) {
+                      return audioPlayer.seek((value / 1000).roundToDouble());
+                    },
+                    min: 0.0,
+                    max: duration.inMilliseconds.toDouble()),
+            if (position != null || title != "Live Radio") _buildProgressView(),
             Padding(
               padding: const EdgeInsets.only(top: 18.0),
               child: Column(
@@ -360,10 +369,10 @@ class AudioAppState extends State<AudioApp> {
                                                             right: 42.0),
                                                     child: Center(
                                                       child: Text(
-                                                        "Lyrics",
+                                                        "About Episode",
                                                         style: TextStyle(
                                                           color: accent,
-                                                          fontSize: 30,
+                                                          fontSize: 25,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -374,25 +383,25 @@ class AudioAppState extends State<AudioApp> {
                                               ],
                                             ),
                                           ),
-                                          lyrics != "null"
+                                          info != "null"
                                               ? Expanded(
                                                   flex: 1,
                                                   child: Padding(
                                                       padding:
                                                           const EdgeInsets.all(
-                                                              6.0),
+                                                              8.0),
                                                       child: Center(
                                                         child:
                                                             SingleChildScrollView(
                                                           child: Text(
-                                                            lyrics,
+                                                            info,
                                                             style: TextStyle(
                                                               fontSize: 16.0,
                                                               color:
                                                                   accentLight,
                                                             ),
                                                             textAlign: TextAlign
-                                                                .center,
+                                                                .justify,
                                                           ),
                                                         ),
                                                       )),
@@ -404,7 +413,7 @@ class AudioAppState extends State<AudioApp> {
                                                   child: Center(
                                                     child: Container(
                                                       child: Text(
-                                                        "No Lyrics available ;(",
+                                                        "No Info available ;(",
                                                         style: TextStyle(
                                                             color: accentLight,
                                                             fontSize: 25),
@@ -417,7 +426,7 @@ class AudioAppState extends State<AudioApp> {
                                     ));
                           },
                           child: Text(
-                            "Lyrics",
+                            "About",
                             style: TextStyle(color: accent),
                           ));
                     }),
@@ -431,16 +440,16 @@ class AudioAppState extends State<AudioApp> {
 
   Row _buildProgressView() => Row(mainAxisSize: MainAxisSize.min, children: [
         Text(
-          position != null
+          (title != "Live Radio")
               ? "${positionText ?? ''} ".replaceFirst("0:0", "0")
-              : duration != null ? durationText : '',
+              : (title != "Live Radio") ? durationText : '',
           style: TextStyle(fontSize: 18.0, color: Colors.green[50]),
         ),
         Spacer(),
         Text(
-          position != null
+          (title != "Live Radio")
               ? "${durationText ?? ''}".replaceAll("0:", "")
-              : duration != null ? durationText : '',
+              : (title != "Live Radio") ? durationText : '',
           style: TextStyle(fontSize: 18.0, color: Colors.green[50]),
         )
       ]);

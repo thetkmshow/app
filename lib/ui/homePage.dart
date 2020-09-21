@@ -15,11 +15,24 @@ import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:thetkmshow/API/saavn.dart';
 import 'package:thetkmshow/music.dart';
+
 import 'package:thetkmshow/style/appColors.dart';
 import 'package:thetkmshow/ui/aboutPage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+
+class Person {
+  final String name;
+  final String age;
+
+  Person(this.name, this.age);
+}
+
+// hold appstate
 class Show extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -27,6 +40,7 @@ class Show extends StatefulWidget {
   }
 }
 
+// functions, main page, carosal template
 class AppState extends State<Show> {
   TextEditingController searchBar = TextEditingController();
   bool fetchingSongs = false;
@@ -225,6 +239,26 @@ class AppState extends State<Show> {
     }
   }
 
+  getLiveDetails() async {
+    try {
+      await getLive();
+      print(kUrl);
+    } catch (e) {
+      artist = "Unknown";
+      print(e);
+    }
+    setState(() {
+      checker = "Haa";
+    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AudioApp(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -360,7 +394,7 @@ class AppState extends State<Show> {
                       padding: const EdgeInsets.only(left: 42.0),
                       child: Center(
                         child: GradientText(
-                          "Musify.",
+                          "The TKM Show.",
                           shaderRect: Rect.fromLTWH(13.0, 0.0, 100.0, 50.0),
                           gradient: LinearGradient(colors: [
                             Color(0xff4db6ac),
@@ -454,6 +488,25 @@ class AppState extends State<Show> {
                   ),
                 ),
               ),
+              InkWell(
+                onTap: () {
+                  getLiveDetails();
+                },
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  child: Image.network(
+                    'https://bmnidhin.github.io/t4lk-static/s1/live2.jpg',
+                    fit: BoxFit.fill,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 5,
+                  margin: EdgeInsets.all(10),
+                ),
+              ),
+
               searchedList.isNotEmpty
                   ? ListView.builder(
                       shrinkWrap: true,
@@ -472,7 +525,7 @@ class AppState extends State<Show> {
                               borderRadius: BorderRadius.circular(10.0),
                               onTap: () {
                                 getSongDetails(
-                                    searchedList[index]["id"], context);
+                                    searchedList[index]["slug"], context);
                               },
                               onLongPress: () {
                                 topSongs();
@@ -501,15 +554,14 @@ class AppState extends State<Show> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     subtitle: Text(
-                                      searchedList[index]['more_info']
-                                          ["singers"],
+                                      "Originals",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     trailing: IconButton(
                                       color: accent,
-                                      icon: Icon(MdiIcons.downloadOutline),
-                                      onPressed: () => downloadSong(
-                                          searchedList[index]["id"]),
+                                      icon: Icon(MdiIcons.playCircleOutline),
+                                      onPressed: () => getSongDetails(
+                                          searchedList[index]["slug"], context),
                                     ),
                                   ),
                                 ],
@@ -520,7 +572,7 @@ class AppState extends State<Show> {
                       },
                     )
                   : FutureBuilder(
-                      future: topSongs(),
+                      future: latestSongs(),
                       builder: (context, data) {
                         if (data.hasData)
                           return Container(
@@ -531,7 +583,7 @@ class AppState extends State<Show> {
                                   padding: const EdgeInsets.only(
                                       top: 30.0, bottom: 10, left: 8),
                                   child: Text(
-                                    "Top 15 Songs",
+                                    "Latest Episodes",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: 22,
@@ -543,18 +595,16 @@ class AppState extends State<Show> {
                                 Container(
                                   //padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
                                   height:
-                                      MediaQuery.of(context).size.height * 0.22,
+                                      MediaQuery.of(context).size.height * 0.27,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: 15,
+                                    itemCount: 7,
                                     itemBuilder: (context, index) {
                                       return getTopSong(
-                                          data.data[index]["image"],
+                                          data.data[index]["cover"],
                                           data.data[index]["title"],
-                                          data.data[index]["more_info"]
-                                                  ["artistMap"]
-                                              ["primary_artists"][0]["name"],
-                                          data.data[index]["id"]);
+                                          "Originals",
+                                          data.data[index]["slug"]);
                                     },
                                   ),
                                 ),
@@ -571,6 +621,103 @@ class AppState extends State<Show> {
                         ));
                       },
                     ),
+              //custom list
+              FutureBuilder(
+                future: featuredSongs(),
+                builder: (context, data) {
+                  if (data.hasData)
+                    return Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 30.0, bottom: 10, left: 8),
+                            child: Text(
+                              "Featured",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: accent,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            //padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                            height: MediaQuery.of(context).size.height * 0.27,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 4,
+                              itemBuilder: (context, index) {
+                                return getTopSong(
+                                    data.data[index]["cover"],
+                                    data.data[index]["title"],
+                                    "Featured",
+                                    data.data[index]["slug"]);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.all(35.0),
+                    child: CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(accent),
+                    ),
+                  ));
+                },
+              ),
+              FutureBuilder(
+                future: latestSongs(),
+                builder: (context, data) {
+                  if (data.hasData)
+                    return Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 30.0, bottom: 10, left: 8),
+                            child: Text(
+                              "All Episodes",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: accent,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            //padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                            height: MediaQuery.of(context).size.height * 0.27,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 5,
+                              itemBuilder: (context, index) {
+                                return getTopSong(
+                                    data.data[index]["cover"],
+                                    data.data[index]["title"],
+                                    "All",
+                                    data.data[index]["slug"]);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.all(35.0),
+                    child: CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(accent),
+                    ),
+                  ));
+                },
+              ),
             ],
           ),
         ),
@@ -586,7 +733,7 @@ class AppState extends State<Show> {
       child: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.17,
+            height: MediaQuery.of(context).size.height * 0.21,
             width: MediaQuery.of(context).size.width * 0.4,
             child: Card(
               shape: RoundedRectangleBorder(
@@ -613,9 +760,11 @@ class AppState extends State<Show> {
                 .replaceAll("&amp;", "&")
                 .replaceAll("&#039;", "'")
                 .replaceAll("&quot;", "\""),
+            overflow: TextOverflow.fade,
+            softWrap: false,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 14.0,
+              fontSize: 12.0,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -626,7 +775,7 @@ class AppState extends State<Show> {
             subtitle,
             style: TextStyle(
               color: Colors.white38,
-              fontSize: 12.0,
+              fontSize: 9.0,
               fontWeight: FontWeight.bold,
             ),
           ),
