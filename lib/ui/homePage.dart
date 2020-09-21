@@ -34,14 +34,37 @@ class Person {
 
 // hold appstate
 class Show extends StatefulWidget {
+  Show({Key key, this.title, this.analytics, this.observer}) : super(key: key);
+  final String title;
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
   @override
   State<StatefulWidget> createState() {
-    return AppState();
+    return AppState(analytics, observer);
   }
 }
 
 // functions, main page, carosal template
 class AppState extends State<Show> {
+  AppState(this.analytics, this.observer);
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
+  String _message = '';
+
+  void setMessage(String message) {
+    setState(() {
+      _message = message;
+    });
+  }
+
+  Future<void> _testSetCurrentScreen() async {
+    await analytics.setCurrentScreen(
+      screenName: "TKM Show Home",
+      screenClassOverride: 'TheTkmShow',
+    );
+    debugPrint('Set Current Screen');
+  }
+
   TextEditingController searchBar = TextEditingController();
   bool fetchingSongs = false;
 
@@ -84,6 +107,17 @@ class AppState extends State<Show> {
     await fetchSongsList(searchQuery);
     fetchingSongs = false;
     setState(() {});
+    await analytics.logEvent(
+      name: 'search_intiated',
+      parameters: <String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        'bool': true,
+      },
+    );
+    debugPrint('Searched');
   }
 
   getSongDetails(String id, var context) async {
@@ -97,10 +131,21 @@ class AppState extends State<Show> {
     setState(() {
       checker = "Haa";
     });
+    await analytics.logEvent(
+      name: 'card_click',
+      parameters: <String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        'bool': true,
+      },
+    );
+    debugPrint('Card Clicked');
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AudioApp(),
+        builder: (context) => AudioApp(observer, analytics),
       ),
     );
   }
@@ -250,11 +295,21 @@ class AppState extends State<Show> {
     setState(() {
       checker = "Haa";
     });
-
+    await analytics.logEvent(
+      name: 'live_card_click',
+      parameters: <String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        'bool': true,
+      },
+    );
+    debugPrint('Live Clicked');
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AudioApp(),
+        builder: (context) => AudioApp(observer, analytics),
       ),
     );
   }
@@ -294,7 +349,9 @@ class AppState extends State<Show> {
                       if (kUrl != "") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => AudioApp()),
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AudioApp(observer, analytics)),
                         );
                       }
                     },

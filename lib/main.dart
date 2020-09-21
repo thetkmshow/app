@@ -29,7 +29,11 @@ class MyApp extends StatelessWidget {
         primaryColor: accent,
         canvasColor: Colors.transparent,
       ),
-      home: Show(),
+      home: Show(
+        title: 'Firebase Analytics Demo',
+        analytics: analytics,
+        observer: observer,
+      ),
     );
   }
 }

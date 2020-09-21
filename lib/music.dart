@@ -7,7 +7,8 @@ import 'package:flutter_media_notification/flutter_media_notification.dart';
 import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:thetkmshow/style/appColors.dart';
-
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'API/saavn.dart';
 
 String status = 'hidden';
@@ -19,12 +20,21 @@ typedef void OnError(Exception exception);
 enum PlayerState { stopped, playing, paused }
 
 class AudioApp extends StatefulWidget {
+  AudioApp(this.observer, this.analytics);
+
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
+
   @override
-  AudioAppState createState() => AudioAppState();
+  AudioAppState createState() => AudioAppState(observer, analytics);
 }
 
 @override
 class AudioAppState extends State<AudioApp> {
+  AudioAppState(this.observer, this.analytics);
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
+
   Duration duration;
   Duration position;
 
@@ -109,6 +119,18 @@ class AudioAppState extends State<AudioApp> {
       setState(() {
         playerState = PlayerState.playing;
       });
+    if (mounted)
+      await analytics.logEvent(
+        name: 'player_started',
+        parameters: <String, dynamic>{
+          'string': 'string',
+          'int': 42,
+          'long': 12345678910,
+          'double': 42.0,
+          'bool': true,
+        },
+      );
+    debugPrint('player_started');
   }
 
   Future pause() async {
@@ -118,6 +140,18 @@ class AudioAppState extends State<AudioApp> {
     setState(() {
       playerState = PlayerState.paused;
     });
+
+    await analytics.logEvent(
+      name: 'player_paused',
+      parameters: <String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        'bool': true,
+      },
+    );
+    debugPrint('player_paused');
   }
 
   Future stop() async {
@@ -127,6 +161,17 @@ class AudioAppState extends State<AudioApp> {
         playerState = PlayerState.stopped;
         position = Duration();
       });
+    analytics.logEvent(
+      name: 'player_stopeed',
+      parameters: <String, dynamic>{
+        'string': 'string',
+        'int': 42,
+        'long': 12345678910,
+        'double': 42.0,
+        'bool': true,
+      },
+    );
+    debugPrint('player_stopped');
   }
 
   Future mute(bool muted) async {
@@ -139,6 +184,18 @@ class AudioAppState extends State<AudioApp> {
 
   void onComplete() {
     if (mounted) setState(() => playerState = PlayerState.stopped);
+    if (mounted)
+      analytics.logEvent(
+        name: 'player_ended',
+        parameters: <String, dynamic>{
+          'string': 'string',
+          'int': 42,
+          'long': 12345678910,
+          'double': 42.0,
+          'bool': true,
+        },
+      );
+    debugPrint('player_ended');
   }
 
   @override
