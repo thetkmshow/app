@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.transparent,
       ),
       home: Show(
-        title: 'Firebase Analytics Demo',
+        title: 'TKM Show App',
         analytics: analytics,
         observer: observer,
       ),

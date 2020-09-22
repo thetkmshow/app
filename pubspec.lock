@@ -183,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.0.0"
+  firebase_remote_config:
+    dependency: "direct main"
+    description:
+      name: firebase_remote_config
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -207,8 +214,8 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "938b14c94b545ff30711e77f495e84a393af5464"
-      url: "https://github.com/Sj-Projects/flutter_media_notification.git"
+      resolved-ref: "13be6ef3cf4cbeeba70c14ea733c2b4605873ede"
+      url: "https://github.com/adventure-tkm/flutter_media_notification.git"
     source: git
     version: "1.2.6"
   flutter_test:
@@ -291,6 +298,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
+  package_info:
+    dependency: "direct main"
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.3"
   path:
     dependency: transitive
     description:

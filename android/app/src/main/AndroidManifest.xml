@@ -9,12 +9,16 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="The TKM Show"
         android:icon="@mipmap/ic_launcher">
-        <!-- <meta-data
+        <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/splash"
+            />
+
+        <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"
-android:resource="@drawable/transparent.png" /> -->
-<!-- <meta-data
+android:resource="@drawable/transparent" /><meta-data
     android:name="com.google.firebase.messaging.default_notification_color"
-    android:resource="@color/colorPrimary" /> -->
+    android:resource="@color/colorPrimary" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -53,5 +57,15 @@ android:resource="@drawable/transparent.png" /> -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+<!--        <service android:name="com.ryanheise.audioservice.AudioService">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.media.browse.MediaBrowserService" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 </manifest>
