@@ -3,8 +3,17 @@ import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:thetkmshow/helper/utils.dart';
 import 'package:thetkmshow/style/appColors.dart';
+import 'package:thetkmshow/ui/sign_in.dart';
+import 'package:thetkmshow/ui/login_page.dart';
+
+String version = "1.2.0";
 
 class AboutPage extends StatelessWidget {
+  AboutPage({this.name, this.email, this.image});
+
+  final name;
+  final email;
+  final image;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,13 +56,19 @@ class AboutPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: SingleChildScrollView(child: AboutCards()),
+        body: SingleChildScrollView(
+            child: AboutCards(name: name, email: email, image: image)),
       ),
     );
   }
 }
 
 class AboutCards extends StatelessWidget {
+  AboutCards({this.name, this.email, this.image});
+
+  final name;
+  final email;
+  final image;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -72,14 +87,13 @@ class AboutCards extends StatelessWidget {
                   subtitle: Padding(
                     padding: const EdgeInsets.all(13.0),
                     child: Center(
-                      child: Text(
-                        "thetkmshow  | 1.0.0",
-                        style: TextStyle(
-                            color: accentLight,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
+                        child: Text(
+                      "thetkmshow  | " + version,
+                      style: TextStyle(
+                          color: accentLight,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600),
+                    )),
                   ),
                 ),
               ],
@@ -200,7 +214,7 @@ class AboutCards extends StatelessWidget {
                       ),
                       tooltip: 'Contact on Telegram',
                       onPressed: () {
-                        launchURL("https://telegram.dog/cyberboysumanjay");
+                        launchURL("https://t.me/thetkmshow");
                       },
                     ),
                     IconButton(
@@ -211,6 +225,56 @@ class AboutCards extends StatelessWidget {
                       tooltip: 'Instagram',
                       onPressed: () {
                         launchURL("https://www.instagram.com/_thetkmshow_/");
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+            child: Card(
+              color: Color(0xff263238),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              elevation: 2.3,
+              child: ListTile(
+                leading: Container(
+                  width: 50.0,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(image),
+                    ),
+                  ),
+                ),
+                title: Text(
+                  name,
+                  style: TextStyle(color: accentLight),
+                ),
+                subtitle: Text(
+                  email,
+                  style: TextStyle(color: accentLight),
+                ),
+                trailing: Wrap(
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        MdiIcons.logout,
+                        color: accentLight,
+                      ),
+                      tooltip: 'Logout',
+                      onPressed: () {
+                        signOutGoogle();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) {
+                          return LoginPage();
+                        }), ModalRoute.withName('/'));
                       },
                     ),
                   ],

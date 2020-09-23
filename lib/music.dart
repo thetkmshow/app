@@ -120,17 +120,17 @@ class AudioAppState extends State<AudioApp> {
         playerState = PlayerState.playing;
       });
     if (mounted)
-      await analytics.logEvent(
-        name: 'player_started',
-        parameters: <String, dynamic>{
-          'string': 'string',
-          'int': 42,
-          'long': 12345678910,
-          'double': 42.0,
-          'bool': true,
-        },
-      );
-    debugPrint('player_started');
+      // await analytics.logEvent(
+      //   name: 'player_started',
+      //   parameters: <String, dynamic>{
+      //     'string': 'string',
+      //     'int': 42,
+      //     'long': 12345678910,
+      //     'double': 42.0,
+      //     'bool': true,
+      //   },
+      // );
+      debugPrint('player_started');
   }
 
   Future pause() async {
@@ -141,16 +141,16 @@ class AudioAppState extends State<AudioApp> {
       playerState = PlayerState.paused;
     });
 
-    await analytics.logEvent(
-      name: 'player_paused',
-      parameters: <String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        'bool': true,
-      },
-    );
+    // await analytics.logEvent(
+    //   name: 'player_paused',
+    //   parameters: <String, dynamic>{
+    //     'string': 'string',
+    //     'int': 42,
+    //     'long': 12345678910,
+    //     'double': 42.0,
+    //     'bool': true,
+    //   },
+    // );
     debugPrint('player_paused');
   }
 
@@ -161,16 +161,16 @@ class AudioAppState extends State<AudioApp> {
         playerState = PlayerState.stopped;
         position = Duration();
       });
-    analytics.logEvent(
-      name: 'player_stopeed',
-      parameters: <String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        'bool': true,
-      },
-    );
+    // analytics.logEvent(
+    //   name: 'player_stopeed',
+    //   parameters: <String, dynamic>{
+    //     'string': 'string',
+    //     'int': 42,
+    //     'long': 12345678910,
+    //     'double': 42.0,
+    //     'bool': true,
+    //   },
+    // );
     debugPrint('player_stopped');
   }
 
@@ -185,17 +185,17 @@ class AudioAppState extends State<AudioApp> {
   void onComplete() {
     if (mounted) setState(() => playerState = PlayerState.stopped);
     if (mounted)
-      analytics.logEvent(
-        name: 'player_ended',
-        parameters: <String, dynamic>{
-          'string': 'string',
-          'int': 42,
-          'long': 12345678910,
-          'double': 42.0,
-          'bool': true,
-        },
-      );
-    debugPrint('player_ended');
+      // analytics.logEvent(
+      //   name: 'player_ended',
+      //   parameters: <String, dynamic>{
+      //     'string': 'string',
+      //     'int': 42,
+      //     'long': 12345678910,
+      //     'double': 42.0,
+      //     'bool': true,
+      //   },
+      // );
+      debugPrint('player_ended');
   }
 
   @override
@@ -254,8 +254,8 @@ class AudioAppState extends State<AudioApp> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  width: 350,
-                  height: 350,
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: MediaQuery.of(context).size.width * 0.85,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     shape: BoxShape.rectangle,
@@ -504,9 +504,9 @@ class AudioAppState extends State<AudioApp> {
         ),
         Spacer(),
         Text(
-          (title != "Live Radio")
-              ? "${durationText ?? ''}".replaceAll("0:", "")
-              : (title != "Live Radio") ? durationText : '',
+          (title != "Live Radio") ? artist : "",
+          // ? "${durationText ?? ''}".replaceAll("0:", "")
+          // : (title != "Live Radio") ? durationText : '',
           style: TextStyle(fontSize: 18.0, color: Colors.green[50]),
         )
       ]);

@@ -187,7 +187,13 @@ Future fetchSongDetails(songId) async {
   // final response = await client.send(request);
   // print(response);
   // kUrl = (response.headers['location']);
-  artist = "Artist 2";
+  artist = (getMain["duration"])
+      .toString()
+      .split("(")[0]
+      .replaceAll("&amp;", "&")
+      .replaceAll("&#039;", "'")
+      .replaceAll("&quot;", "\"");
+  ;
   debugPrint(kUrl);
 }
 
@@ -256,6 +262,6 @@ Future getLive() async {
   // final response = await client.send(request);
   // print(response);
   // kUrl = (response.headers['location']);
-  artist = "Artist 2";
+  artist = "Endless";
   debugPrint(kUrl);
 }

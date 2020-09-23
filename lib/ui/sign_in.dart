@@ -36,16 +36,16 @@ Future<String> signInWithGoogle() async {
     assert(await user.getIdToken() != null);
 
     var prefs = await SharedPreferences.getInstance();
-    prefs.setString('uid', user.uid);
-    prefs.setString('name', user.displayName);
-    prefs.setString('email', user.email);
-    prefs.setString('imageUrl', user.photoURL);
+    await prefs.setString('uid', user.uid);
+    await prefs.setString('name', user.displayName);
+    await prefs.setString('email', user.email);
+    await prefs.setString('imageUrl', user.photoURL);
 
     final User currentUser = _auth.currentUser;
     assert(user.uid == currentUser.uid);
-    name = user.displayName;
-    email = user.email;
-    imageUrl = user.photoURL;
+    name = prefs.getString('name');
+    email = prefs.getString('email');
+    imageUrl = prefs.getString('imageUrl');
     if (name.contains(" ")) {
       name = name.substring(0, name.indexOf(" "));
     }

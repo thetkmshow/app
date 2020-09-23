@@ -3,7 +3,10 @@ import 'package:thetkmshow/ui/homePage.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:thetkmshow/ui/sign_in.dart';
-import 'package:thetkmshow/ui/success.dart';
+// import 'package:thetkmshow/ui/success.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import 'package:thetkmshow/style/appColors.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title, this.analytics, this.observer})
@@ -16,6 +19,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String fname = "";
+  String femail = "";
+  String fimage = "";
   _LoginPageState(this.analytics, this.observer);
   final FirebaseAnalyticsObserver observer;
   final FirebaseAnalytics analytics;
@@ -23,13 +29,26 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xff384850),
+              Color(0xff263238),
+              Color(0xff263238),
+            ],
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlutterLogo(size: 150),
+              Image.network(
+                "https://thetkmshow.in/static/media/tkmshow_white.daed602d.png",
+                height: 120,
+              ),
               SizedBox(height: 50),
               _signInButton(),
             ],
@@ -45,16 +64,25 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         signInWithGoogle().then((result) {
           if (result != null) {
+            getDetails().then((value) {
+              setState(() {
+                fname = value[0];
+                femail = value[1];
+                fimage = value[2];
+              });
+            });
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
                   return
                       // FirstScreen();
                       Show(
-                    title: 'TKM Show App',
-                    analytics: analytics,
-                    observer: observer,
-                  );
+                          title: 'TKM Show App',
+                          analytics: analytics,
+                          observer: observer,
+                          name: fname,
+                          email: femail,
+                          image: fimage);
                 },
               ),
             );
@@ -70,7 +98,10 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+            Icon(
+              MdiIcons.google,
+              color: accentLight,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
