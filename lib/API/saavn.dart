@@ -132,7 +132,7 @@ Future fetchSongDetails(songId) async {
       .replaceAll("&#039;", "'")
       .replaceAll("&quot;", "\"");
   image = (getMain["cover"]).replaceAll("150x150", "500x500");
-  album = ("Album")
+  album = (getMain["artist"])
       .toString()
       .replaceAll("&quot;", "\"")
       .replaceAll("&#039;", "'")

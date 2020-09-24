@@ -637,7 +637,7 @@ class AppState extends State<Show> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     subtitle: Text(
-                                      "Originals",
+                                      "",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     trailing: IconButton(
@@ -666,7 +666,7 @@ class AppState extends State<Show> {
                                   padding: const EdgeInsets.only(
                                       top: 30.0, bottom: 10, left: 8),
                                   child: Text(
-                                    "Made for " + name,
+                                    "For " + name + "!",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: 18,
@@ -681,12 +681,12 @@ class AppState extends State<Show> {
                                       MediaQuery.of(context).size.height * 0.27,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: 7,
+                                    itemCount: 4,
                                     itemBuilder: (context, index) {
                                       return getTopSong(
                                           data.data[index]["cover"],
                                           data.data[index]["title"],
-                                          "Originals",
+                                          " ",
                                           data.data[index]["slug"]);
                                     },
                                   ),
@@ -736,7 +736,7 @@ class AppState extends State<Show> {
                                 return getTopSong(
                                     data.data[index]["cover"],
                                     data.data[index]["title"],
-                                    "Featured",
+                                    " ",
                                     data.data[index]["slug"]);
                               },
                             ),
@@ -765,7 +765,7 @@ class AppState extends State<Show> {
                             padding: const EdgeInsets.only(
                                 top: 30.0, bottom: 10, left: 8),
                             child: Text(
-                              "All Episodes",
+                              "Listen Again",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 18,
@@ -779,12 +779,12 @@ class AppState extends State<Show> {
                             height: MediaQuery.of(context).size.height * 0.27,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: 5,
+                              itemCount: 6,
                               itemBuilder: (context, index) {
                                 return getTopSong(
                                     data.data[index]["cover"],
                                     data.data[index]["title"],
-                                    "All",
+                                    " ",
                                     data.data[index]["slug"]);
                               },
                             ),
