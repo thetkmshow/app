@@ -28,8 +28,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info/package_info.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
-const APP_STORE_URL = 'https://thetkmshow.in/app';
-const PLAY_STORE_URL = 'https://thetkmshow.in/app';
+const APP_STORE_URL = 'https://thetkmshow.page.link/install';
+const PLAY_STORE_URL = 'https://thetkmshow.page.link/install';
 
 class Person {
   final String name;
@@ -571,6 +571,7 @@ class AppState extends State<Show> {
                   ),
                 ),
               ),
+
               InkWell(
                 onTap: () {
                   getLiveDetails();
@@ -586,7 +587,7 @@ class AppState extends State<Show> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   elevation: 5,
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(8),
                 ),
               ),
 

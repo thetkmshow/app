@@ -239,12 +239,13 @@ Future getLive() async {
   //     lyrics = lyricsResponse['lyrics'];
   //   }
   // }
-  // info = ()
-  //     .toString()
-  //     .split("(")[0]
-  //     .replaceAll("&amp;", "&")
-  //     .replaceAll("&#039;", "'")
-  //     .replaceAll("&quot;", "\"");
+  info =
+      "Home of TKM's very own podcast. Here we bring you everything from alumni interviews, interactive sessions and a platform for voices of TKM to reign free."
+          .toString()
+          .split("(")[0]
+          .replaceAll("&amp;", "&")
+          .replaceAll("&#039;", "'")
+          .replaceAll("&quot;", "\"");
   // has_320 = getMain[songId]["more_info"]["320kbps"];
   kUrl =
       ("https://node-26.zeno.fm/7sa03vhxk2zuv?rj-ttl=5&rj-tok=AAABdK-9fJwAo-kBe3V04xNsxw")
