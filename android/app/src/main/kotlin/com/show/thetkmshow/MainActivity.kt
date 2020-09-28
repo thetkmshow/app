@@ -1,4 +1,4 @@
-package com.example.thetkmshow
+package com.show.thetkmshow
 
 import io.flutter.embedding.android.FlutterActivity
 

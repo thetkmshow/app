@@ -58,6 +58,59 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086641860835:android:f30466898f612bc236d5d6",
+        "android_client_info": {
+          "package_name": "com.show.thetkmshow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086641860835-pt91065b7gcd05lb48cubt39161gttk2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.show.thetkmshow",
+            "certificate_hash": "d8da961ff07c15449351c63422d2f8ec5ff3869c"
+          }
+        },
+        {
+          "client_id": "1086641860835-jbf8fv6f513c0d1s4jeilhig6vvun1v4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.show.thetkmshow",
+            "certificate_hash": "585a0930f3a5f1444a889a2dcc435e85bdd21d3d"
+          }
+        },
+        {
+          "client_id": "1086641860835-2m4a75c337nfpejf1iidsaunkjijjnt0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.show.thetkmshow",
+            "certificate_hash": "ae3f703032b542aa43737a65faf84c411a094713"
+          }
+        },
+        {
+          "client_id": "1086641860835-lmq7ah8q1p4mgrr4jmi1qn4krusf76lt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGTNeR7T9BmvGroQnhszBkXbRvm7T9DKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086641860835-lmq7ah8q1p4mgrr4jmi1qn4krusf76lt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
