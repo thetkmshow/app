@@ -132,7 +132,7 @@ Future fetchSongDetails(songId) async {
       .replaceAll("&#039;", "'")
       .replaceAll("&quot;", "\"");
   image = (getMain["cover"]).replaceAll("150x150", "500x500");
-  album = ("Album")
+  album = (getMain["artist"])
       .toString()
       .replaceAll("&quot;", "\"")
       .replaceAll("&#039;", "'")
@@ -187,7 +187,13 @@ Future fetchSongDetails(songId) async {
   // final response = await client.send(request);
   // print(response);
   // kUrl = (response.headers['location']);
-  artist = "Artist 2";
+  artist = (getMain["duration"])
+      .toString()
+      .split("(")[0]
+      .replaceAll("&amp;", "&")
+      .replaceAll("&#039;", "'")
+      .replaceAll("&quot;", "\"");
+  ;
   debugPrint(kUrl);
 }
 
@@ -233,20 +239,20 @@ Future getLive() async {
   //     lyrics = lyricsResponse['lyrics'];
   //   }
   // }
-  // info = ()
-  //     .toString()
-  //     .split("(")[0]
-  //     .replaceAll("&amp;", "&")
-  //     .replaceAll("&#039;", "'")
-  //     .replaceAll("&quot;", "\"");
-  // has_320 = getMain[songId]["more_info"]["320kbps"];
-  kUrl =
-      ("https://node-26.zeno.fm/7sa03vhxk2zuv?rj-ttl=5&rj-tok=AAABdK-9fJwAo-kBe3V04xNsxw")
+  info =
+      "Home of TKM's very own podcast. Here we bring you everything from alumni interviews, interactive sessions and a platform for voices of TKM to reign free."
           .toString()
           .split("(")[0]
           .replaceAll("&amp;", "&")
           .replaceAll("&#039;", "'")
           .replaceAll("&quot;", "\"");
+  // has_320 = getMain[songId]["more_info"]["320kbps"];
+  kUrl = ("https://stream.zenolive.com/qds1zvhxk2zuv.aac")
+      .toString()
+      .split("(")[0]
+      .replaceAll("&amp;", "&")
+      .replaceAll("&#039;", "'")
+      .replaceAll("&quot;", "\"");
 
   rawkUrl = kUrl;
 
@@ -256,6 +262,6 @@ Future getLive() async {
   // final response = await client.send(request);
   // print(response);
   // kUrl = (response.headers['location']);
-  artist = "Artist 2";
+  artist = "Endless";
   debugPrint(kUrl);
 }

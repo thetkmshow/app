@@ -9,7 +9,7 @@ import 'package:thetkmshow/ui/login_page.dart';
 import 'package:thetkmshow/style/appColors.dart';
 
 import 'package:thetkmshow/ui/sign_in.dart';
-import 'package:thetkmshow/ui/success.dart';
+import 'package:thetkmshow/ui/homePage.dart';
 
 // import 'package:thetkmshow/test.dart';
 // D:\Nidhin_Projects\Android\thetkmshow\build\flutter_media_notification\intermediates\packaged_res\debug\drawable-xhdpi-v4
@@ -22,10 +22,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -91,8 +87,17 @@ class RoutePageState extends State<RoutePage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics analytics = FirebaseAnalytics();
+    FirebaseAnalyticsObserver observer =
+        FirebaseAnalyticsObserver(analytics: analytics);
     return isLoggedin == true
-        ? FirstScreen(name: fname, email: femail, image: fimage)
+        ? Show(
+            title: 'TKM Show App',
+            analytics: analytics,
+            observer: observer,
+            name: fname,
+            email: femail,
+            image: fimage)
         : LoginPage();
   }
 }

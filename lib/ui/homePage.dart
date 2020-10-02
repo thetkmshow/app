@@ -28,8 +28,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info/package_info.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
-const APP_STORE_URL = 'https://thetkmshow.in/app';
-const PLAY_STORE_URL = 'https://thetkmshow.in/app';
+const APP_STORE_URL = 'https://thetkmshow.page.link/install';
+const PLAY_STORE_URL = 'https://thetkmshow.page.link/install';
 
 class Person {
   final String name;
@@ -40,21 +40,35 @@ class Person {
 
 // hold appstate
 class Show extends StatefulWidget {
-  Show({Key key, this.title, this.analytics, this.observer}) : super(key: key);
+  Show(
+      {Key key,
+      this.title,
+      this.analytics,
+      this.observer,
+      this.name,
+      this.email,
+      this.image})
+      : super(key: key);
   final String title;
+  final name;
+  final email;
+  final image;
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
   @override
   State<StatefulWidget> createState() {
-    return AppState(analytics, observer);
+    return AppState(analytics, observer, name, email, image);
   }
 }
 
 // functions, main page, carosal template
 class AppState extends State<Show> {
-  AppState(this.analytics, this.observer);
+  AppState(this.analytics, this.observer, this.name, this.email, this.uimage);
   final FirebaseAnalyticsObserver observer;
   final FirebaseAnalytics analytics;
+  final name;
+  final email;
+  final uimage;
   String _message = '';
   @override
   void setMessage(String message) {
@@ -118,16 +132,16 @@ class AppState extends State<Show> {
     await fetchSongsList(searchQuery);
     fetchingSongs = false;
     setState(() {});
-    await analytics.logEvent(
-      name: 'search_intiated',
-      parameters: <String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        'bool': true,
-      },
-    );
+    // await analytics.logEvent(
+    //   name: 'search_intiated',
+    //   parameters: <String, dynamic>{
+    //     'string': 'string',
+    //     'int': 42,
+    //     'long': 12345678910,
+    //     'double': 42.0,
+    //     'bool': true,
+    //   },
+    // );
     debugPrint('Searched');
   }
 
@@ -142,16 +156,16 @@ class AppState extends State<Show> {
     setState(() {
       checker = "Haa";
     });
-    await analytics.logEvent(
-      name: 'card_click',
-      parameters: <String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        'bool': true,
-      },
-    );
+    // await analytics.logEvent(
+    //   name: 'card_click',
+    //   parameters: <String, dynamic>{
+    //     'string': 'string',
+    //     'int': 42,
+    //     'long': 12345678910,
+    //     'double': 42.0,
+    //     'bool': true,
+    //   },
+    // );
     debugPrint('Card Clicked');
     Navigator.push(
       context,
@@ -306,16 +320,16 @@ class AppState extends State<Show> {
     setState(() {
       checker = "Haa";
     });
-    await analytics.logEvent(
-      name: 'live_card_click',
-      parameters: <String, dynamic>{
-        'string': 'string',
-        'int': 42,
-        'long': 12345678910,
-        'double': 42.0,
-        'bool': true,
-      },
-    );
+    // await analytics.logEvent(
+    //   name: 'live_card_click',
+    //   parameters: <String, dynamic>{
+    //     'string': 'string',
+    //     'int': 42,
+    //     'long': 12345678910,
+    //     'double': 42.0,
+    //     'bool': true,
+    //   },
+    // );
     debugPrint('Live Clicked');
     Navigator.push(
       context,
@@ -403,13 +417,13 @@ class AppState extends State<Show> {
                                 title,
                                 style: TextStyle(
                                     color: accent,
-                                    fontSize: 17,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               ),
                               Text(
                                 artist,
                                 style:
-                                    TextStyle(color: accentLight, fontSize: 15),
+                                    TextStyle(color: accentLight, fontSize: 10),
                               )
                             ],
                           ),
@@ -442,7 +456,7 @@ class AppState extends State<Show> {
                               }
                             });
                           },
-                          iconSize: 45,
+                          iconSize: 38,
                         )
                       ],
                     ),
@@ -462,7 +476,7 @@ class AppState extends State<Show> {
                       padding: const EdgeInsets.only(left: 42.0),
                       child: Center(
                         child: GradientText(
-                          "The TKM Show.",
+                          "Listen",
                           shaderRect: Rect.fromLTWH(13.0, 0.0, 100.0, 50.0),
                           gradient: LinearGradient(colors: [
                             Color(0xff4db6ac),
@@ -486,7 +500,8 @@ class AppState extends State<Show> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AboutPage(),
+                            builder: (context) => AboutPage(
+                                name: name, email: email, image: uimage),
                           ),
                         ),
                       },
@@ -556,6 +571,7 @@ class AppState extends State<Show> {
                   ),
                 ),
               ),
+
               InkWell(
                 onTap: () {
                   getLiveDetails();
@@ -571,7 +587,7 @@ class AppState extends State<Show> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   elevation: 5,
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(8),
                 ),
               ),
 
@@ -622,7 +638,7 @@ class AppState extends State<Show> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     subtitle: Text(
-                                      "Originals",
+                                      "",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     trailing: IconButton(
@@ -651,10 +667,10 @@ class AppState extends State<Show> {
                                   padding: const EdgeInsets.only(
                                       top: 30.0, bottom: 10, left: 8),
                                   child: Text(
-                                    "Latest Episodes",
+                                    "For " + name + "!",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      fontSize: 22,
+                                      fontSize: 18,
                                       color: accent,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -666,12 +682,12 @@ class AppState extends State<Show> {
                                       MediaQuery.of(context).size.height * 0.27,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: 7,
+                                    itemCount: 4,
                                     itemBuilder: (context, index) {
                                       return getTopSong(
                                           data.data[index]["cover"],
                                           data.data[index]["title"],
-                                          "Originals",
+                                          " ",
                                           data.data[index]["slug"]);
                                     },
                                   ),
@@ -705,7 +721,7 @@ class AppState extends State<Show> {
                               "Featured",
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 18,
                                 color: accent,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -721,7 +737,7 @@ class AppState extends State<Show> {
                                 return getTopSong(
                                     data.data[index]["cover"],
                                     data.data[index]["title"],
-                                    "Featured",
+                                    " ",
                                     data.data[index]["slug"]);
                               },
                             ),
@@ -750,10 +766,10 @@ class AppState extends State<Show> {
                             padding: const EdgeInsets.only(
                                 top: 30.0, bottom: 10, left: 8),
                             child: Text(
-                              "All Episodes",
+                              "Listen Again",
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 18,
                                 color: accent,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -764,12 +780,12 @@ class AppState extends State<Show> {
                             height: MediaQuery.of(context).size.height * 0.27,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: 5,
+                              itemCount: 6,
                               itemBuilder: (context, index) {
                                 return getTopSong(
                                     data.data[index]["cover"],
                                     data.data[index]["title"],
-                                    "All",
+                                    " ",
                                     data.data[index]["slug"]);
                               },
                             ),
@@ -801,7 +817,7 @@ class AppState extends State<Show> {
       child: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.21,
+            height: MediaQuery.of(context).size.width * 0.4,
             width: MediaQuery.of(context).size.width * 0.4,
             child: Card(
               shape: RoundedRectangleBorder(
