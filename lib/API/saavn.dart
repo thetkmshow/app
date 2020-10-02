@@ -247,13 +247,12 @@ Future getLive() async {
           .replaceAll("&#039;", "'")
           .replaceAll("&quot;", "\"");
   // has_320 = getMain[songId]["more_info"]["320kbps"];
-  kUrl =
-      ("https://node-26.zeno.fm/7sa03vhxk2zuv?rj-ttl=5&rj-tok=AAABdK-9fJwAo-kBe3V04xNsxw")
-          .toString()
-          .split("(")[0]
-          .replaceAll("&amp;", "&")
-          .replaceAll("&#039;", "'")
-          .replaceAll("&quot;", "\"");
+  kUrl = ("https://stream.zenolive.com/qds1zvhxk2zuv.aac")
+      .toString()
+      .split("(")[0]
+      .replaceAll("&amp;", "&")
+      .replaceAll("&#039;", "'")
+      .replaceAll("&quot;", "\"");
 
   rawkUrl = kUrl;
 

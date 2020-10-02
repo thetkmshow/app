@@ -68,6 +68,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1086641860835-6f7knfhbukjfv1nc88sipg8c6ij8eu46.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.show.thetkmshow",
+            "certificate_hash": "0f0e6ead15fee398705c98d054ef448c8c75043d"
+          }
+        },
+        {
           "client_id": "1086641860835-pt91065b7gcd05lb48cubt39161gttk2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
